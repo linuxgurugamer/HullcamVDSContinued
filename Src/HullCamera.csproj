@@ -1,0 +1,117 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProductVersion>8.0.30703</ProductVersion>
+    <SchemaVersion>2.0</SchemaVersion>
+    <ProjectGuid>{DB4B41D3-0694-492E-BE2C-2A711F629B4E}</ProjectGuid>
+    <OutputType>Library</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>HullCamera</RootNamespace>
+    <AssemblyName>HullCamera</AssemblyName>
+    <FileAlignment>512</FileAlignment>
+    <Description>HullCamera</Description>
+    <ReleaseVersion>0.2.9.5</ReleaseVersion>
+    <SynchReleaseVersion>false</SynchReleaseVersion>
+    <SignAssembly>true</SignAssembly>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\Debug\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\Release\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="Assembly-CSharp">
+      <HintPath>R:\KSP_1.1.3_dev\KSP_x64_Data\Managed\Assembly-CSharp.dll</HintPath>
+    </Reference>
+    <Reference Include="Assembly-CSharp-firstpass">
+      <HintPath>R:\KSP_1.1.3_dev\KSP_x64_Data\Managed\Assembly-CSharp-firstpass.dll</HintPath>
+    </Reference>
+    <Reference Include="KSPAssets">
+      <HintPath>R:\KSP_1.1.3_dev\KSP_x64_Data\Managed\KSPAssets.dll</HintPath>
+    </Reference>
+    <Reference Include="KSPCore">
+      <HintPath>R:\KSP_1.1.3_dev\KSP_x64_Data\Managed\KSPCore.dll</HintPath>
+    </Reference>
+    <Reference Include="KSPUtil">
+      <HintPath>R:\KSP_1.1.3_dev\KSP_x64_Data\Managed\KSPUtil.dll</HintPath>
+    </Reference>
+    <Reference Include="System">
+      <HintPath>R:\KSP_1.1.3_dev\KSP_x64_Data\Managed\System.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Xml.Linq" />
+    <Reference Include="Microsoft.CSharp" />
+    <Reference Include="System.Xml">
+      <HintPath>..\System.Xml.dll</HintPath>
+    </Reference>
+    <Reference Include="UnityEngine">
+      <HintPath>R:\KSP_1.1.3_dev\KSP_x64_Data\Managed\UnityEngine.dll</HintPath>
+    </Reference>
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="Properties\Resources.resx">
+      <Generator>ResXFileCodeGenerator</Generator>
+      <LastGenOutput>Resources.Designer.cs</LastGenOutput>
+    </EmbeddedResource>
+  </ItemGroup>
+  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+  <PropertyGroup>
+    <PostBuildEvent>start  D:\Users\jbb\github\HullcamVDSContinued\Src /WAIT deploy.bat
+
+if $(ConfigurationName) == Release (
+start /D  D:\Users\jbb\github\HullcamVDSContinued\Src /WAIT buildRelease.bat
+)
+</PostBuildEvent>
+  </PropertyGroup>
+  <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
+       Other similar extension points exist, see Microsoft.Common.targets.
+  <Target Name="BeforeBuild">
+  </Target>
+  <Target Name="AfterBuild">
+  </Target>
+  -->
+  <ItemGroup>
+    <Compile Include="HullCamera.cs" />
+    <Compile Include="HullCameraZoom.cs" />
+    <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="FirstPersonEVA.cs" />
+    <Compile Include="CameraFilters\CameraFilter.cs" />
+    <Compile Include="CameraFilters\CameraFilterBlackAndWhiteFilm.cs" />
+    <Compile Include="CameraFilters\CameraFilterBlackAndWhiteHiResTV.cs" />
+    <Compile Include="CameraFilters\CameraFilterBlackAndWhiteLoResTV.cs" />
+    <Compile Include="CameraFilters\CameraFilterColorFilm.cs" />
+    <Compile Include="CameraFilters\CameraFilterColorHiResTV.cs" />
+    <Compile Include="CameraFilters\CameraFilterColorLoResTV.cs" />
+    <Compile Include="CameraFilters\CameraFilterNightVision.cs" />
+    <Compile Include="CameraFilters\CameraFilterNormal.cs" />
+    <Compile Include="CameraFilters\CameraFilterThermal.cs" />
+    <Compile Include="MovieTimeFilter.cs" />
+    <Compile Include="Properties\Resources.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>Resources.resx</DependentUpon>
+    </Compile>
+    <Compile Include="RandomJitter.cs" />
+    <Compile Include="VHoldRoller.cs" />
+    <Compile Include="MovieTime.cs" />
+    <Compile Include="CameraFilters\CameraFilterDockingCam.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="buildrelease.bat" />
+    <None Include="deploy.bat" />
+    <None Include="HullcamVDSContinued.version" />
+  </ItemGroup>
+</Project>

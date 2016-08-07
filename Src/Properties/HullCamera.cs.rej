@@ -1,0 +1,26 @@
+--- Properties/HullCamera.cs
++++ Properties/HullCamera.cs
+@@ -61,10 +61,7 @@
+             cam.transform.localPosition = origPosition;
+             cam.transform.localRotation = origRotation;
+             Camera.mainCamera.nearClipPlane = origClip;
+-            foreach (Camera c in Camera.allCameras)
+-            {
+-                c.fov = origFoV;
+-            }
++            cam.SetFoV(cameraFoV);
+             if (FlightGlobals.ActiveVessel != null && HighLogic.LoadedScene == GameScenes.FLIGHT)
+                 cam.setTarget(FlightGlobals.ActiveVessel.transform);
+             //MapView.EnterMapView();
+@@ -331,10 +328,7 @@
+             cam.transform.parent = (cameraTransformName.Length > 0) ? part.FindModelTransform(cameraTransformName) : part.transform;
+             cam.transform.localPosition = cameraPosition;
+             cam.transform.localRotation = Quaternion.LookRotation(cameraForward, cameraUp);
+-            foreach (Camera c in Camera.allCameras)
+-            {
+-                c.fov = cameraFoV;
+-            }
++            cam.SetFoV(cameraFoV);
+             Camera.mainCamera.nearClipPlane = cameraClip;
+         }
+ 
