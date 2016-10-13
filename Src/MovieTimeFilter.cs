@@ -41,6 +41,7 @@ namespace HullcamVDS {
 
 
     public void SetMode(CameraFilter.eCameraMode mode) {
+            Debug.Log("SetMode");
       if (mode != cameraMode) {
         CameraFilter newFilter = CameraFilter.CreateFilter(mode);
         if (newFilter != null && newFilter.Activate()) {

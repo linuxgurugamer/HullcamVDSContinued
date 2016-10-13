@@ -85,6 +85,7 @@ namespace HullcamVDS {
 		}
 
 		public void setNightVision() {
+            Debug.Log("setNightVision");
 			SetCameraMode(CameraFilter.eCameraMode.NightVision);
 		}
 
@@ -156,9 +157,10 @@ namespace HullcamVDS {
 
 		}
 
-    public void OnDestroy() {
-			SetCameraMode (CameraFilter.eCameraMode.Normal);
-    }
+        public void OnDestroy() {
+                Debug.Log("OnDestroy");
+			    SetCameraMode (CameraFilter.eCameraMode.Normal);
+        }
 
 		private CameraFilter.eCameraMode GetCameraMode() {
 				if (flightCameraFilter != null && MovieTimeFilter.LoadedScene() == MovieTimeFilter.eFilterType.Flight)
@@ -167,6 +169,7 @@ namespace HullcamVDS {
 		}
 
 		public void SetCameraMode(CameraFilter.eCameraMode mode) {
+            Debug.Log("SetCameraMode");
 			if (flightCameraFilter != null && MovieTimeFilter.LoadedScene() == MovieTimeFilter.eFilterType.Flight) {
 				flightCameraFilter.SetMode(mode);
 			}

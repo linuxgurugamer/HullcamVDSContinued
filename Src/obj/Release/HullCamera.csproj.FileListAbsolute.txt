@@ -20,3 +20,6 @@ D:\Users\jbb\github\HullcamVDSContinued\Src\bin\Release\UnityEngine.xml
 D:\Users\jbb\github\HullcamVDSContinued\Src\obj\Release\HullCamera.dll
 D:\Users\jbb\github\HullcamVDSContinued\Src\obj\Release\HullCamera.pdb
 D:\Users\jbb\github\HullcamVDSContinued\Src\obj\Release\HullCamera.csprojResolveAssemblyReference.cache
+D:\Users\jbb\github\HullcamVDSContinued\Src\bin\Release\Assembly-CSharp.xml
+D:\Users\jbb\github\HullcamVDSContinued\Src\bin\Release\KSPAssets.xml
+D:\Users\jbb\github\HullcamVDSContinued\Src\bin\Release\KSPUtil.xml

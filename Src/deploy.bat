@@ -1,16 +1,19 @@
 ﻿
-set H=R:\KSP_1.1.3_dev
+set H=R:\KSP_1.1.4_dev
 echo %H%
 
 set d=%H%
 if exist %d% goto one
 mkdir %d%
 :one
-set d=%H%\Gamedata
+set d=%H%\GameData
 if exist %d% goto two
 mkdir %d%
 :two
-
+set d=%H%\GameData\HullCameraVDS
+if exist %d% goto three
+mkdir %d%
+:three
 
 
 

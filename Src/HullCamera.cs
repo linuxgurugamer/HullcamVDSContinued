@@ -151,7 +151,7 @@ namespace HullcamVDS {
 		{
 			if (sDebugOutput)
 			{
-				Debug.Log(o);
+				Debug.Log("HullCam: " + o.ToString());
 			}
 		}
 
@@ -159,6 +159,7 @@ namespace HullcamVDS {
 
 		protected static void StaticInit()
 		{
+            Debug.Log("StaticInit");
 			// Commented out so that we can reload the config by reloading a save file rather than restarting KSP.
 			/*
 			if (sInit)
@@ -249,6 +250,7 @@ namespace HullcamVDS {
 		}
 
 		public static void changeCameraMode() {
+            DebugOutput("changeCameraMode");
 			if (sCurrentCamera.cameraMode == 0) {
 				sCurrentCamera.mt.SetCameraMode(CameraFilter.eCameraMode.Normal);
 			}
@@ -350,7 +352,8 @@ namespace HullcamVDS {
 			}
 			else
 			{
-				CycleCamera(1);
+                DebugOutput(" 5");
+                CycleCamera(1);
 			}
 		}
 
@@ -370,7 +373,8 @@ namespace HullcamVDS {
 				}
 				else
 				{
-					CycleCamera(1);
+                    DebugOutput(" 6");
+                    CycleCamera(1);
 				}
 				return;
 			}
@@ -457,7 +461,7 @@ namespace HullcamVDS {
 
 		}
 
-		public void Update()
+		public void LateUpdate()
 		{
 			// In the VAB
 			if (vessel == null)
@@ -470,7 +474,8 @@ namespace HullcamVDS {
 				sCurrentHandler = this;
 			}
 
-			/* if (Input.GetKeyDown(KeyCode.Y) ) {
+#if false
+            if (Input.GetKeyDown(KeyCode.Y) ) {
 
 				print (sCameras.Count);
 				print ("sCurrentCamera: " + sCurrentCamera);
@@ -484,7 +489,8 @@ namespace HullcamVDS {
 				print (sCycleToMainCamera);
 				print (sCameras.IndexOf(sCurrentCamera));
 				DebugList ();
-			} */
+			}
+#endif
 
 			if (sCurrentCamera != null) {
 				if (sCurrentCamera.vessel != FlightGlobals.ActiveVessel) {
@@ -504,33 +510,37 @@ namespace HullcamVDS {
 				return;
 			}
 
-			if (sActionFlags.deactivateCamera || CAMERA_RESET.GetKeyDown() || GameSettings.CAMERA_NEXT.GetKeyDown())
+#if true
+            if (sActionFlags.deactivateCamera || CAMERA_RESET.GetKeyDown() || GameSettings.CAMERA_NEXT.GetKeyDown())
 			{
 				LeaveCamera();
 				sActionFlags.deactivateCamera = false;
 			}
-
+#endif
 			if (sActionFlags.nextCamera || (sCurrentHandler == this && CAMERA_NEXT.GetKeyDown()))
 			{
-				CycleCamera(1);
+                DebugOutput(" 1 sActionFlags.nextCamera: " + sActionFlags.nextCamera.ToString() + " minus key: " + Input.GetKeyDown(KeyCode.Minus).ToString());
+
+                CycleCamera(1);
 				sActionFlags.nextCamera = false;
 			}
-
-			if (sActionFlags.prevCamera || (sCurrentHandler == this && CAMERA_PREV.GetKeyDown()))
+#if true
+            if (sActionFlags.prevCamera || (sCurrentHandler == this && CAMERA_PREV.GetKeyDown()))
 			{
 				if (sCameras.IndexOf (sCurrentCamera) != -1) {
 					CycleCamera (-1);
 					sActionFlags.prevCamera = false;
 				} else {
-					CycleCamera (sCameras.Count);
+                    DebugOutput(" 2");
+                    CycleCamera(sCameras.Count);
 				}
 			}
+#endif
 
 
 
 
-
-			/*
+            /*
 	        if (sCurrentCamera == this)
 			{
 	            if (Input.GetKeyUp(KeyCode.Keypad8))
@@ -570,12 +580,13 @@ namespace HullcamVDS {
 	                print("Position: " + cameraPosition + " - Clip = " + cameraClip + " - FoV = " + cameraFoV);
 	            }
 	        } */
-
+            doOnUpdate();
 		}
 
-		public override void OnUpdate()
+		//public override void OnUpdate()
+        void doOnUpdate()
 		{
-			base.OnUpdate();
+			//base.OnUpdate();
 
 			if (vessel == null)
 			{
@@ -642,7 +653,8 @@ namespace HullcamVDS {
 
 			if (!camEnabled)
 			{
-				CycleCamera(1);
+                DebugOutput(" 3");
+                CycleCamera(1);
 				return;
 			}
 
@@ -673,7 +685,8 @@ namespace HullcamVDS {
 			// If we're only allowed to cycle the active vessel and viewing through a camera that's not the active vessel any more, then cycle to one that is.
 			if (sCycleOnlyActiveVessel && FlightGlobals.ActiveVessel != null && FlightGlobals.ActiveVessel != vessel)
 			{
-				CycleCamera(1);
+                DebugOutput(" 4");
+                CycleCamera(1);
 			}
 
 			base.OnFixedUpdate();
@@ -783,7 +796,7 @@ namespace HullcamVDS {
 
 
 
-		#endregion
+#endregion
 	}
 
 }
