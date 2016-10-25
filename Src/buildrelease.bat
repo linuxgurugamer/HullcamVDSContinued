@@ -36,6 +36,7 @@ rmdir /s /q %HOMEDIR%\install\Gamedata\HullCameraVDS
 
 copy bin\Release\HullCamera.dll ..\GameData\HullCameraVDS\Plugins
 copy  HullcamVDSContinued.version ..\GameData\HullCameraVDS\HullcamVDSContinued.version
+copy  ..\HullCameraAssets\Bundles\shaders ..\GameData\HullCameraVDS\Resources\shaders.bundle
 
 xcopy /Y /E ..\GameData\HullCameraVDS  %HOMEDIR%\install\Gamedata\HullCameraVDS\
 copy /y ../LICENSE %HOMEDIR%\install\Gamedata\HullCameraVDS

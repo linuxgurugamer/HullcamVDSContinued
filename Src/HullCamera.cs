@@ -233,10 +233,11 @@ namespace HullcamVDS {
 			Camera.main.nearClipPlane = sOrigClip;
 			sCurrentCamera.mt.SetCameraMode(CameraFilter.eCameraMode.Normal);
 			sCam.SetFoV(sOrigFov);
+            sCam.ActivateUpdate();
 
 			if (FlightGlobals.ActiveVessel != null && HighLogic.LoadedScene == GameScenes.FLIGHT)
 			{
-				sCam.setTarget(FlightGlobals.ActiveVessel.transform);
+				sCam.SetTarget(FlightGlobals.ActiveVessel.transform, FlightCamera.TargetMode.Transform);
 			}
 
 			sOrigParent = null;
@@ -313,6 +314,7 @@ namespace HullcamVDS {
 					nextCam = (direction > 0) ? 0 : sCameras.Count - 1;
 				}
 				newCam = sCameras[nextCam];
+                
 				if (sCycleOnlyActiveVessel && FlightGlobals.ActiveVessel != null && FlightGlobals.ActiveVessel != newCam.vessel)
 				{
 					continue;
@@ -325,7 +327,7 @@ namespace HullcamVDS {
 					}
 					sCurrentCamera = newCam;
 					changeCameraMode();
-					sCurrentCamera.camActive = true;
+					sCurrentCamera.camActive = true;                   
 					return;
 				}
 			}
@@ -381,7 +383,8 @@ namespace HullcamVDS {
 			sCurrentCamera = this;
 			camActive = true;
 			changeCameraMode ();
-		}
+            
+        }
 
 		protected void DirtyWindow()
 		{
@@ -410,7 +413,9 @@ namespace HullcamVDS {
 			}
 			camEnabled = !camEnabled;
 			Events["EnableCamera"].guiName = camEnabled ? "Disable Camera" : "Enable Camera";
-			DirtyWindow();
+            
+
+            DirtyWindow();
 		}
 
 		#endregion
@@ -593,7 +598,8 @@ namespace HullcamVDS {
 				return;
 			}
 
-			if (!camActive || CameraManager.Instance.currentCameraMode != CameraManager.CameraMode.Flight)
+
+            if (!camActive || CameraManager.Instance.currentCameraMode != CameraManager.CameraMode.Flight)
 				return;
 
 			if (sActionFlags.zoomIn || GameSettings.ZOOM_IN.GetKeyDown() || (Input.GetAxis("Mouse ScrollWheel") > 0))
@@ -643,7 +649,7 @@ namespace HullcamVDS {
 			if (!sAllowMainCamera && sCurrentCamera == null && !vessel.isEVA)
 			{
 				camActive = true;
-				sCurrentCamera = this;
+                sCurrentCamera = this;
 			}
 
 			if (!camActive)
@@ -667,7 +673,8 @@ namespace HullcamVDS {
 				{
 					return;
 				}
-			}
+
+            }
 
 			// Either we haven't set sOriginParent, or we've nulled it when restoring the main camera, so we save it again here.
 			if (sOrigParent == null)
@@ -675,9 +682,15 @@ namespace HullcamVDS {
 				SaveMainCamera();
 			}
 
-			sCam.setTarget(null);
+
+            //sCam.SetTarget(null);
+            sCam.SetTargetNone();
 			sCam.transform.parent = (cameraTransformName.Length > 0) ? part.FindModelTransform(cameraTransformName) : part.transform;
-			sCam.transform.localPosition = cameraPosition;
+            sCam.DeactivateUpdate();
+            sCam.transform.localPosition = cameraPosition; 
+            
+                     
+            
 			sCam.transform.localRotation = Quaternion.LookRotation(cameraForward, cameraUp);
 			sCam.SetFoV(cameraFoV);
 			Camera.main.nearClipPlane = cameraClip;

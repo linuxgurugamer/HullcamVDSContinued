@@ -52,10 +52,6 @@
     <Reference Include="System">
       <HintPath>R:\KSP_1.1.4_dev\KSP_x64_Data\Managed\System.dll</HintPath>
     </Reference>
-    <Reference Include="System.Xml.Linq" />
-    <Reference Include="System.Xml">
-      <HintPath>..\System.Xml.dll</HintPath>
-    </Reference>
     <Reference Include="UnityEngine, Version=0.0.0.0, Culture=neutral, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
       <HintPath>R:\KSP_1.1.4_dev\KSP_x64_Data\Managed\UnityEngine.dll</HintPath>
@@ -73,7 +69,7 @@
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <PropertyGroup>
-    <PostBuildEvent>start  D:\Users\jbb\github\HullcamVDSContinued\Src /WAIT deploy.bat
+    <PostBuildEvent>start /D  D:\Users\jbb\github\HullcamVDSContinued\Src /WAIT deploy.bat
 
 if $(ConfigurationName) == Release (
 start /D  D:\Users\jbb\github\HullcamVDSContinued\Src /WAIT buildRelease.bat
@@ -117,5 +113,7 @@ start /D  D:\Users\jbb\github\HullcamVDSContinued\Src /WAIT buildRelease.bat
     <None Include="buildrelease.bat" />
     <None Include="deploy.bat" />
     <None Include="HullcamVDSContinued.version" />
+    <None Include="Resources\MovieTime.shader" />
+    <None Include="Resources\NightVision.shader" />
   </ItemGroup>
 </Project>
