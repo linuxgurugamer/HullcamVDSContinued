@@ -116,4 +116,7 @@ start /D  D:\Users\jbb\github\HullcamVDSContinued\Src /WAIT buildRelease.bat
     <None Include="Resources\MovieTime.shader" />
     <None Include="Resources\NightVision.shader" />
   </ItemGroup>
+  <ItemGroup>
+    <Content Include="Changelog.txt" />
+  </ItemGroup>
 </Project>

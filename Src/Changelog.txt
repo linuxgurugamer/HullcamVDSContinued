@@ -1,0 +1,10 @@
+﻿0.1.2
+	Updated for 1.2
+
+0.1.3
+	Copied patch from RPM 
+	Fixed patches for cameras in RPM
+	Fixed Telescopes
+	Fixed various offsets and rotations
+	fixed names in files, so that L-Tech will now have the same camera name as Hullcam
+	Got all cameras working with RPM
