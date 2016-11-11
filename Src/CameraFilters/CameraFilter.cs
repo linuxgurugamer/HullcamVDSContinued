@@ -185,7 +185,22 @@ namespace HullcamVDS
             if (BundleLoaded)
                 return;
 
-            using (WWW www = new WWW("file://" + KSPUtil.ApplicationRootPath + "GameData/HullCameraVDS/Resources/shaders.bundle"))
+			string bundleName;
+			switch (Application.platform)
+			{
+				case RuntimePlatform.OSXPlayer:
+				bundleName = "shaders.osx";
+				break;
+
+				case RuntimePlatform.LinuxPlayer:
+				bundleName = "shaders.linux";
+				break;
+
+			default:
+				bundleName = "shaders.windows";
+				break;
+			}
+            using (WWW www = new WWW("file://" + KSPUtil.ApplicationRootPath + "GameData/HullCameraVDS/Resources/" + bundleName))
             {
                 if (www.error != null)
                     Debug.Log("Shaders bundle not found!");
