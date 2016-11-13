@@ -26,3 +26,7 @@ copy  /y HullcamVDSContinued.version ..\GameData\HullCameraVDS\HullcamVDSContinu
 xcopy /Y /E ..\GameData\HullCameraVDS %H%\GameData\HullCameraVDS
 copy  ..\HullCameraAssets\Bundles\shaders %H%\GameData\HullCameraVDS\Resources\shaders.bundle
 
+copy  ..\HullCameraAssets\Bundles-windows\shaders %H%\GameData\HullCameraVDS\Resources\shaders.windows
+copy  ..\HullCameraAssets\Bundles-osx\shaders %H%\GameData\HullCameraVDS\Resources\shaders.osx
+copy  ..\HullCameraAssets\Bundleslinux\shaders %H%\GameData\HullCameraVDS\Resources\shaders.linux
+

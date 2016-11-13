@@ -8,3 +8,6 @@
 	Fixed various offsets and rotations
 	fixed names in files, so that L-Tech will now have the same camera name as Hullcam
 	Got all cameras working with RPM
+
+0.1.5
+	Code updated to support OSX & Linux with regards to the shaders, thanks @ThirdOfSeven
