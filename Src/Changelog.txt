@@ -11,3 +11,6 @@
 
 0.1.5
 	Code updated to support OSX & Linux with regards to the shaders, thanks @ThirdOfSeven
+
+0.1.6
+	Added code to support Windows, both directX and OpenGL

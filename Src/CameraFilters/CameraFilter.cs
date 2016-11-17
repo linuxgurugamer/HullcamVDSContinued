@@ -186,17 +186,33 @@ namespace HullcamVDS
                 return;
 
 			string bundleName;
-			switch (Application.platform)
+            Debug.Log("Application.platform: " + Application.platform.ToString());
+
+            switch (Application.platform)
 			{
 				case RuntimePlatform.OSXPlayer:
 				bundleName = "shaders.osx";
 				break;
 
-				case RuntimePlatform.LinuxPlayer:
-				bundleName = "shaders.linux";
-				break;
+                case RuntimePlatform.LinuxPlayer:
+                    bundleName = "shaders.linux";
+                    break;
 
-			default:
+                case RuntimePlatform.WindowsPlayer:
+                    if (SystemInfo.graphicsDeviceVersion.Contains("OpenGL"))
+                    {
+                        Debug.Log("OpenGL found");
+                        bundleName = "shaders.windows";
+                    }
+                    else
+                    {
+                        Debug.Log("Not OpenGL");
+                        bundleName = "shaders.bundle";
+                    }
+                    
+                    break;
+
+                default:
 				bundleName = "shaders.windows";
 				break;
 			}
