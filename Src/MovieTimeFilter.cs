@@ -114,6 +114,7 @@ namespace HullcamVDS
         {
             if (cameraFilter != null && filterType == LoadedScene())
             {
+                Debug.Log("OnRenderImage");
                 cameraFilter.RenderTitlePage(title, titleTexture);
                 cameraFilter.RenderImageWithFilter(source, target);
             }

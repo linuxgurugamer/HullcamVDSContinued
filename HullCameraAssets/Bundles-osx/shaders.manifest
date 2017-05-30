@@ -1,0 +1,16 @@
+ManifestFileVersion: 0
+CRC: 2297873558
+Hashes:
+  AssetFileHash:
+    serializedVersion: 2
+    Hash: 69c70678894d981979e1ecc09497ac13
+  TypeTreeHash:
+    serializedVersion: 2
+    Hash: 80729077cb39806c86b5c10073f074fb
+HashAppended: 0
+ClassTypes:
+- Class: 48
+  Script: {instanceID: 0}
+Assets:
+- Assets/MovieTime.shader
+Dependencies: []
