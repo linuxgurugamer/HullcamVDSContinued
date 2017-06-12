@@ -154,7 +154,7 @@ namespace HullcamVDS
 
         public virtual void RenderTitlePage(bool title, Texture2D titleTex)
         {
-            Debug.Log("RenderTitlePage");
+            //Debug.Log("RenderTitlePage");
             if (mtShader == null)
             {
                 Debug.Log("mtShader is null");

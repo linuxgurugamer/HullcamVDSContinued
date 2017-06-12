@@ -1,7 +1,7 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio 2015
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "HullCameraAssets.CSharp", "HullCameraAssets.CSharp.csproj", "{AFBE89F1-57CE-63EB-759C-190BA8487DF8}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "HullCameraAssets", "HullCameraAssets.csproj", "{9917D8AF-D347-9FE6-D8BB-E55E56A1E720}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -9,10 +9,10 @@ Global
 		Release|Any CPU = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(ProjectConfigurationPlatforms) = postSolution
-		{AFBE89F1-57CE-63EB-759C-190BA8487DF8}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{AFBE89F1-57CE-63EB-759C-190BA8487DF8}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{AFBE89F1-57CE-63EB-759C-190BA8487DF8}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{AFBE89F1-57CE-63EB-759C-190BA8487DF8}.Release|Any CPU.Build.0 = Release|Any CPU
+		{9917D8AF-D347-9FE6-D8BB-E55E56A1E720}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{9917D8AF-D347-9FE6-D8BB-E55E56A1E720}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{9917D8AF-D347-9FE6-D8BB-E55E56A1E720}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{9917D8AF-D347-9FE6-D8BB-E55E56A1E720}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
