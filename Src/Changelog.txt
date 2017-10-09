@@ -20,3 +20,6 @@
 	
 0.1.7.1
 	Removed log spam
+
+0.1.8
+	Updated for KSP 1.3.1
