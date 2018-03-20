@@ -1,6 +1,12 @@
 ﻿{
   "NAME": "HullcamVDSContinued",
   "URL": "https://raw.githubusercontent.com/linuxgurugamer/HullcamVDSContinued/master/Src/HullcamVDSContinued.version",
+  "DOWNLOAD" : "https://github.com/linuxgurugamer/HullcamVDSContinued/releases",
+  "GITHUB" :
+  {
+      "USERNAME" : "linuxgurugamer",
+      "REPOSITORY" : "HullcamVDSContinued"
+  },
   "VERSION": {
     "MAJOR": 0,
     "MINOR": 1,
