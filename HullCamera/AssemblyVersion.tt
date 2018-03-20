@@ -28,7 +28,7 @@
 	int i2 = 0;
 	string s;
 
-	string versionfile =  @"D:\Users\jbb\github\HullcamVDSContinued\Src\HullcamVDSContinued.version";
+	string versionfile =  @"D:\Users\jbb\github\HullcamVDSContinued\HullcamVDSContinued.version";
 	if (!File.Exists(versionfile))
 	{
 		Write("File: " + versionfile + " missing\n");		

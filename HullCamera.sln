@@ -1,9 +1,9 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
-# Visual Studio 14
-VisualStudioVersion = 14.0.25420.1
+# Visual Studio 15
+VisualStudioVersion = 15.0.27428.2005
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "HullCamera", "HullCamera.csproj", "{DB4B41D3-0694-492E-BE2C-2A711F629B4E}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "HullCamera", "HullCamera\HullCamera.csproj", "{DB4B41D3-0694-492E-BE2C-2A711F629B4E}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "SolutionItems", "SolutionItems", "{3B2EF8D1-FF53-4436-95B9-836375CC4AB5}"
 	ProjectSection(SolutionItems) = preProject
@@ -11,6 +11,9 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "SolutionItems", "SolutionIt
 		Changelog.txt = Changelog.txt
 		deploy.bat = deploy.bat
 		HullcamVDSContinued.version = HullcamVDSContinued.version
+		jenkins.txt = jenkins.txt
+		License.txt = License.txt
+		README.md = README.md
 	EndProjectSection
 EndProject
 Global
@@ -26,6 +29,9 @@ Global
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {9F4DC7DE-83B7-40CC-B00A-9F54F64538D1}
 	EndGlobalSection
 	GlobalSection(MonoDevelopProperties) = preSolution
 		StartupItem = HullCamera.csproj
