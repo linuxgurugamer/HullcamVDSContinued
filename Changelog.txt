@@ -27,3 +27,6 @@
 0.1.9
 	Added change suggested by forum user @jebs_sy to have the camera focus on the vessel (center of mass) instead of a part when leaving the hull camera
 	Updated for 1.4.1
+
+0.1.9.1
+	Disabled log spam
