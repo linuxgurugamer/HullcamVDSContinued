@@ -29,4 +29,8 @@
 	Updated for 1.4.1
 
 0.1.9.1
-	Disabled log spam
+	Disabled log spam due to missing shader
+    Updated version file
+
+0.1.9.2
+	Fixed shaders, thanks to @Kerbas_ad_astra
