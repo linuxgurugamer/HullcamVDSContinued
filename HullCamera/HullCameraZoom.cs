@@ -6,12 +6,11 @@ using UnityEngine;
 
 namespace HullcamVDS {
 
-	namespace MuMech
-	{
+
 		public class MuMechModuleHullCameraZoom : MuMechModuleHullCamera
 		{
 				
 		}
-	}
+	
 
 }

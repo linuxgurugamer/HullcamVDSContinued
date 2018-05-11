@@ -11,7 +11,7 @@ using UnityEngine;
 namespace HullcamVDS {
 
 public class EVACamera : MuMechModuleHullCamera
-{        
+    {        
     [KSPField]
     new public float cameraFoVMax = 60;
     

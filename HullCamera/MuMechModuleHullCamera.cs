@@ -143,11 +143,15 @@ namespace HullcamVDS {
 		// This could be made into an integer that describes how many things to log.
 		public static bool sDebugOutput = false;
 
-		#endregion
+        public static bool sDisplayCameraNameWhenSwitching = true;
+        public static bool sDisplayVesselNameWhenSwitching = true;
+        public static float sMessageDuration = 3.0f;
 
-		#region Static Initialization
+        #endregion
 
-		protected static void DebugOutput(object o)
+        #region Static Initialization
+
+        protected static void DebugOutput(object o)
 		{
 			if (sDebugOutput)
 			{
@@ -201,8 +205,26 @@ namespace HullcamVDS {
 					{
 						sDebugOutput = Boolean.Parse(cfg.GetValue("DebugOutput"));
 					}
-				}
-			} catch(Exception e)
+
+                    if (cfg.HasValue("DisplayCameraNameWhenSwitching"))
+                    {
+                        sDisplayCameraNameWhenSwitching = Boolean.Parse(cfg.GetValue("DisplayCameraNameWhenSwitching"));
+                    }
+                    if (cfg.HasValue("DisplayVesselNameWhenSwitching"))
+                    {
+                        sDisplayVesselNameWhenSwitching = Boolean.Parse(cfg.GetValue("DisplayVesselNameWhenSwitching"));
+                    }
+                    if (cfg.HasValue("MessageDuration"))
+                    {
+                        try
+                        {
+                            sMessageDuration = (float)Double.Parse(cfg.GetValue("MessageDuration"));
+                        } catch { }
+                        if (sMessageDuration < 1 || sMessageDuration > 10)
+                            sMessageDuration = 3;
+                    }
+                }
+            } catch(Exception e)
 			{
 				print("Exception when loading HullCamera config: " + e.ToString());
 			}
@@ -227,29 +249,30 @@ namespace HullcamVDS {
 		{
 			DebugOutput("RestoreMainCamera");
 
-			sCam.transform.parent = sOrigParent;
-			sCam.transform.localPosition = sOrigPosition;
-			sCam.transform.localRotation = sOrigRotation;
-			Camera.main.nearClipPlane = sOrigClip;
-			sCurrentCamera.mt.SetCameraMode(CameraFilter.eCameraMode.Normal);
-			sCam.SetFoV(sOrigFov);
-            sCam.ActivateUpdate();
+            if (sCam != null)
+            {
+                sCam.transform.parent = sOrigParent;
+                sCam.transform.localPosition = sOrigPosition;
+                sCam.transform.localRotation = sOrigRotation;
+                sCam.SetFoV(sOrigFov);
+                sCam.ActivateUpdate();
 
-			if (FlightGlobals.ActiveVessel != null && HighLogic.LoadedScene == GameScenes.FLIGHT)
-			{
-				//sCam.SetTarget(FlightGlobals.ActiveVessel.transform, FlightCamera.TargetMode.Transform);
-                sCam.SetTarget(FlightGlobals.ActiveVessel.transform, FlightCamera.TargetMode.Vessel);
+                if (FlightGlobals.ActiveVessel != null && HighLogic.LoadedScene == GameScenes.FLIGHT)
+                {
+                    //sCam.SetTarget(FlightGlobals.ActiveVessel.transform, FlightCamera.TargetMode.Transform);
+                    sCam.SetTarget(FlightGlobals.ActiveVessel.transform, FlightCamera.TargetMode.Vessel);
+                }
+
+                sOrigParent = null;
             }
-
-			sOrigParent = null;
-
 			if (sCurrentCamera != null)
 			{
-				sCurrentCamera.camActive = false;
+                sCurrentCamera.mt.SetCameraMode(CameraFilter.eCameraMode.Normal);
+                sCurrentCamera.camActive = false;
 			}
 			sCurrentCamera = null;
-
-		}
+            Camera.main.nearClipPlane = sOrigClip;
+        }
 
 		public static void changeCameraMode() {
             DebugOutput("changeCameraMode");
@@ -328,8 +351,10 @@ namespace HullcamVDS {
 					}
 					sCurrentCamera = newCam;
 					changeCameraMode();
-					sCurrentCamera.camActive = true;                   
-					return;
+					sCurrentCamera.camActive = true;
+                    IdentifyCamera();
+
+                    return;
 				}
 			}
 			// Failed to find a camera including cycling back to the one we started from. Default to main as a last-ditch effort.
@@ -340,6 +365,17 @@ namespace HullcamVDS {
 				RestoreMainCamera();
 			}
 		}
+
+        static void  IdentifyCamera()
+        {
+            if (sCurrentCamera != null && sDisplayCameraNameWhenSwitching)
+            {
+                if (sDisplayVesselNameWhenSwitching)
+                    ScreenMessages.PostScreenMessage("Switching to camera: " + sCurrentCamera.cameraName + " on vessel " + sCurrentCamera.vessel.GetDisplayName(), sMessageDuration, ScreenMessageStyle.UPPER_CENTER);
+                else
+                    ScreenMessages.PostScreenMessage("Switching to camera: " + sCurrentCamera.cameraName, sMessageDuration, ScreenMessageStyle.UPPER_CENTER);
+            }
+        }
 
 		protected static void LeaveCamera()
 		{

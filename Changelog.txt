@@ -34,3 +34,11 @@
 
 0.1.9.2
 	Fixed shaders, thanks to @Kerbas_ad_astra
+
+0.1.9.3
+	Added message to identify current camera when switching
+	Added two new config options, both defaulting to true:
+		DisplayCameraNameWhenSwitching
+		DisplayVesselNameWhenSwitching
+
+	Commented out all old references to HullCamera and RESOURCE in the parts
