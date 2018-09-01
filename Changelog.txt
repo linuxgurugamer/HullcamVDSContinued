@@ -40,5 +40,9 @@
 	Added two new config options, both defaulting to true:
 		DisplayCameraNameWhenSwitching
 		DisplayVesselNameWhenSwitching
-
+	Added new config option, defaulting to 3 seconds, allowable range is 1-10
+		MessageDuration
 	Commented out all old references to HullCamera and RESOURCE in the parts
+
+0.1.9.4
+	Fixed error: Texture 'HullCameraVDS/Parts/hc_wideangle/model000' not found
