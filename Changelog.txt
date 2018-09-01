@@ -46,3 +46,4 @@
 
 0.1.9.4
 	Fixed error: Texture 'HullCameraVDS/Parts/hc_wideangle/model000' not found
+	Fixed missing texture for the wideangle camera
