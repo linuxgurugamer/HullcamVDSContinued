@@ -50,3 +50,6 @@
 
 0.1.9.5
 	fixed RPM patch for showing camera fov in the editor for the Kazzelblad and wide-angle camera
+
+0.1.9.6
+	Version bump for 1.5 rebuild
