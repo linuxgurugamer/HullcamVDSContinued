@@ -132,10 +132,25 @@ public class initKerbalEVA : UnityEngine.MonoBehaviour {
 			PartLoader.getPartInfoByName("kerbalEVA").partPrefab.AddModule(EVA);
 		}
 		catch{}
+
 		try { PartLoader.getPartInfoByName("kerbalEVAfemale").partPrefab.AddModule(EVA); 
 		}
 		catch {}
-	}
-}
+            try
+            {
+
+                PartLoader.getPartInfoByName("kerbalEVAVintage").partPrefab.AddModule(EVA);
+            }
+            catch { }
+
+            try
+            {
+                PartLoader.getPartInfoByName("kerbalEVAfemaleVintage").partPrefab.AddModule(EVA);
+            }
+            catch { }
+
+
+        }
+    }
 
 }
