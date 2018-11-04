@@ -56,3 +56,7 @@
 
 0.1.9.7
 	Fixed bug when the expansion is included, due to not finding the vintage kerbal parts
+
+0.1.9.8
+	Removed code which was adding the eva camera at runtime and replaced it with a MM script
+	Moved all MM scripts into new folder
