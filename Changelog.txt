@@ -64,3 +64,5 @@
 0.1.9.9
 	Fixed the KSC Launchpad Camera so it now is there
 	Removed the obsolete impactTolerance variable
+	Thanks to @Gordon Dry for this:  patch to avoid the EVA cam to be added when the mod ThroughTheEyes is already installed.
+	Simplified the kerbalEVA patch 
