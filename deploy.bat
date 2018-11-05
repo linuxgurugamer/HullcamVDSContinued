@@ -17,4 +17,3 @@ copy /Y HullcamVDSContinued.version %GAMEDATA%\%GAMEDIR%
 
 xcopy /y /s /I %GAMEDATA%\%GAMEDIR% "%H%\GameData\%GAMEDIR%"
 
-pause

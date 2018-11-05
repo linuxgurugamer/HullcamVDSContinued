@@ -60,7 +60,3 @@
 0.1.9.8
 	Removed code which was adding the eva camera at runtime and replaced it with a MM script
 	Moved all MM scripts into new folder
-	
-0.1.9.9
-	Fixed the KSC Launchpad Camera so it now is there
-	Removed the obsolete impactTolerance variable
