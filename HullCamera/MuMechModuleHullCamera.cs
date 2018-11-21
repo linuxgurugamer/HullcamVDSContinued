@@ -314,7 +314,7 @@ namespace HullcamVDS {
 
 			// Iterates the number of cameras and returns as soon as a camera is chosen.
 			// Then if no camera is chosen, restore main camera as a last-ditch effort.
-			for (int i = 0; i < sCameras.Count + 1; i += 1)
+			for (int i = 0; i < sCameras.Count - 1; i++)
 			{
 				
 				// Check if cycle direction is referse and if the current cam is the first hullcam

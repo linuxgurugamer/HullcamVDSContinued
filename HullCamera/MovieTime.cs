@@ -140,8 +140,9 @@ namespace HullcamVDS
             {
                 print(currentMode);
             }
-
-            HasTargetData = (FlightGlobals.ActiveVessel.targetObject is Vessel);
+            if (FlightGlobals.ActiveVessel.targetObject == null)
+                return;
+            HasTargetData = (FlightGlobals.ActiveVessel.targetObject is Vessel || FlightGlobals.ActiveVessel.targetObject is ModuleDockingNode);
             currentMode = GetCameraMode().ToString();
 
             if (HasTargetData)
@@ -152,7 +153,11 @@ namespace HullcamVDS
                 targetVelY = Math.Round(Vector3d.Dot(FlightGlobals.ship_tgtVelocity, FlightGlobals.ActiveVessel.ReferenceTransform.forward), 3);
                 targetVelZ = Math.Round(Vector3d.Dot(FlightGlobals.ship_tgtVelocity, FlightGlobals.ActiveVessel.ReferenceTransform.up), 3);
 
-                Vessel targetVessel = (Vessel)FlightGlobals.ActiveVessel.targetObject;
+                Vessel targetVessel;
+                if (FlightGlobals.ActiveVessel.targetObject is Vessel)
+                    targetVessel = (Vessel)FlightGlobals.ActiveVessel.targetObject;
+                else
+                    targetVessel = ((ModuleDockingNode)FlightGlobals.ActiveVessel.targetObject).vessel;
                 Orbit activeOrbit = FlightGlobals.ActiveVessel.orbit;
                 Orbit targetOrbit = targetVessel.orbit;
 

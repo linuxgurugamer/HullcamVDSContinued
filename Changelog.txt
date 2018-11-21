@@ -66,3 +66,7 @@
 	Removed the obsolete impactTolerance variable
 	Thanks to @Gordon Dry for this:  patch to avoid the EVA cam to be added when the mod ThroughTheEyes is already installed.
 	Simplified the kerbalEVA patch 
+
+0.1.9.10
+	Fixed nullref when using the equals sign and at the end of the list of cameras.
+	Added code to allow a docking node to be a target and have the docking info displayed on the docking camera
