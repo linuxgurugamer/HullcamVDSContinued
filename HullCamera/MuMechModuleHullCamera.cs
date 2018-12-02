@@ -154,7 +154,7 @@ namespace HullcamVDS
 
         protected static void DebugOutput(object o)
         {
-            //			if (sDebugOutput)
+   			if (sDebugOutput)
             {
                 Debug.Log("HullCam: " + o.ToString());
             }
@@ -164,7 +164,6 @@ namespace HullcamVDS
 
         protected static void StaticInit()
         {
-            Debug.Log("StaticInit");
             // Commented out so that we can reload the config by reloading a save file rather than restarting KSP.
             /*
 			if (sInit)
@@ -248,6 +247,11 @@ namespace HullcamVDS
             sOrigFov = Camera.main.fieldOfView;
             sOrigPosition = sCam.transform.localPosition;
             sOrigRotation = sCam.transform.localRotation;
+            if (sOrigVesselTransformPart == null)
+            {
+                sOrigVesselTransformPart = FlightGlobals.ActiveVessel.GetReferenceTransformPart();
+                ScreenMessages.PostScreenMessage("Original Control Point: " + sOrigVesselTransformPart.partInfo.title);
+            }
         }
 
         protected static void RestoreMainCamera()
@@ -284,12 +288,20 @@ namespace HullcamVDS
             {
                 if (GameSettings.MODIFIER_KEY.GetKey(false))
                 {
+#if false
                     ModuleDockingNode mdn = sOrigVesselTransformPart.FindModuleImplementing<ModuleDockingNode>();
                     if (mdn != null)
+                    {
                         sOrigVesselTransformPart.SetReferenceTransform(mdn.controlTransform);
-                    FlightGlobals.ActiveVessel.SetReferenceTransform(sOrigVesselTransformPart, true);
-                    ScreenMessages.PostScreenMessage("Control Point changed to " + sOrigVesselTransformPart.partInfo.title);
+                    } else
+#endif
+                    {
+                       // sOrigVesselTransformPart.SetReferenceTransform(sOrigVesselTransformPart.GetReferenceTransform());
+                    }
 
+                    FlightGlobals.ActiveVessel.SetReferenceTransform(sOrigVesselTransformPart, true);
+                    ScreenMessages.PostScreenMessage("Control Point restored to " + sOrigVesselTransformPart.partInfo.title);
+                    sOrigVesselTransformPart = null;
                 }
             }
             /////////////////////////////////////
@@ -374,6 +386,7 @@ namespace HullcamVDS
                 newCam = sCameras[nextCam];
 
 #if true
+            
                 if (newCam.vessel == FlightGlobals.ActiveVessel)
                 {
                     if (GameSettings.MODIFIER_KEY.GetKey(false))
@@ -381,6 +394,12 @@ namespace HullcamVDS
                         ModuleDockingNode mdn = newCam.part.FindModuleImplementing<ModuleDockingNode>();
                         if (mdn != null)
                         {
+                            if (sOrigVesselTransformPart == null)
+                            {
+                                sOrigVesselTransformPart = FlightGlobals.ActiveVessel.GetReferenceTransformPart();
+                                ScreenMessages.PostScreenMessage("Original Control Point: " + sOrigVesselTransformPart.partInfo.title);
+                            }
+
                             newCam.part.SetReferenceTransform(mdn.controlTransform);
                             FlightGlobals.ActiveVessel.SetReferenceTransform(newCam.part, true);
 
@@ -471,16 +490,7 @@ namespace HullcamVDS
                 }
                 return;
             }
-            else
-            {
 
-                /////////////////////////////////////
-
-                sOrigVesselTransformPart = FlightGlobals.ActiveVessel.GetReferenceTransformPart();
-                Debug.Log("OrigVesselTransformPart: " + sOrigVesselTransformPart.partInfo.title);
-
-                /////////////////////////////////////
-            }
             sCurrentCamera = this;
             camActive = true;
             changeCameraMode();
@@ -495,7 +505,7 @@ namespace HullcamVDS
             }
         }
 
-        #region Events
+#region Events
 
         // Note: Events show in the part menu in flight.
 
@@ -519,9 +529,9 @@ namespace HullcamVDS
             DirtyWindow();
         }
 
-        #endregion
+#endregion
 
-        #region Actions
+#region Actions
 
         // Note: Actions are available to action groups.
 
@@ -555,9 +565,9 @@ namespace HullcamVDS
             sActionFlags.prevCamera = true;
         }
 
-        #endregion
+#endregion
 
-        #region Callbacks
+#region Callbacks
 
         void DebugList()
         {
@@ -780,13 +790,6 @@ namespace HullcamVDS
                 {
                     return;
                 }
-
-                /////////////////////////////////////
-
-                sOrigVesselTransformPart = FlightGlobals.ActiveVessel.GetReferenceTransformPart();
-                Debug.Log("OrigVesselTransformPart: " + sOrigVesselTransformPart.partInfo.title);
-
-                /////////////////////////////////////
             }
 
             // Either we haven't set sOriginParent, or we've nulled it when restoring the main camera, so we save it again here.
@@ -923,7 +926,7 @@ namespace HullcamVDS
 
 
 
-        #endregion
+#endregion
     }
 
 }

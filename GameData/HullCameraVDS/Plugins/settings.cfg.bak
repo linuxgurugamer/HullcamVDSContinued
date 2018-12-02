@@ -6,7 +6,7 @@ HullCameraVDSConfig
 	DebugOutput = true
 	DisplayCameraNameWhenSwitching = true
 	DisplayVesselNameWhenSwitching = true
-	MessageDuration = 3
+	MessageDuration = 9
 
     CAMERA_NEXT
     {
