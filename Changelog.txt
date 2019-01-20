@@ -78,3 +78,6 @@
 
 0.1.9.12
 	Fixed resetting the control point when using the Alt (on Windows) when cycling past the last camera
+
+0.1.10
+	Added missing bulkheadProfiles

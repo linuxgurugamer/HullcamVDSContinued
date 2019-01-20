@@ -1,17 +1,16 @@
-﻿{
+{
   "NAME": "HullcamVDSContinued",
   "URL": "http://ksp.spacetux.net/avc/HullcamVDSContinued",
-  "DOWNLOAD" : "https://github.com/linuxgurugamer/HullcamVDSContinued/releases",
-  "GITHUB" :
-  {
-      "USERNAME" : "linuxgurugamer",
-      "REPOSITORY" : "HullcamVDSContinued"
+  "DOWNLOAD": "https://github.com/linuxgurugamer/HullcamVDSContinued/releases",
+  "GITHUB": {
+    "USERNAME": "linuxgurugamer",
+    "REPOSITORY": "HullcamVDSContinued"
   },
   "VERSION": {
     "MAJOR": 0,
     "MINOR": 1,
-    "PATCH": 9,
-    "BUILD": 12
+    "PATCH": 10,
+    "BUILD": 0
   },
   "KSP_VERSION": {
     "MAJOR": 1,
@@ -22,10 +21,5 @@
     "MAJOR": 1,
     "MINOR": 5,
     "PATCH": 1
-  },
-  "KSP_VERSION_MAX": {
-    "MAJOR": 1,
-    "MINOR": 5,
-    "PATCH": 99
   }
 }
