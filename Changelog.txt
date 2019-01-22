@@ -81,3 +81,7 @@
 
 0.1.10
 	Added missing bulkheadProfiles
+	
+0.1.10.1
+	Split aerocam into two files
+	added missing bulkheadProfiles to aerocam180
