@@ -85,3 +85,9 @@
 0.1.10.1
 	Split aerocam into two files
 	added missing bulkheadProfiles to aerocam180
+
+0.1.10.2
+	Thanks to forum user @4x4cheesecake for the following:
+		Removed FINAL from patches
+		Added RPM as a dependency for the patch to run at all to prevent warnings about the missing partmodule if RPM is not installed.
+
