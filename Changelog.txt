@@ -91,3 +91,6 @@
 		Removed FINAL from patches
 		Added RPM as a dependency for the patch to run at all to prevent warnings about the missing partmodule if RPM is not installed.
 
+0.1.11
+	Added patch file for BlueDog Design Bureau
+	Fixed missing texture on the wide angle camera
