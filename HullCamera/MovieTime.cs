@@ -5,6 +5,7 @@
 
 using System;
 using UnityEngine;
+using KSP.Localization;
 
 namespace HullcamVDS
 {
@@ -28,6 +29,9 @@ namespace HullcamVDS
 
         public string closeAp;
 
+        private string locTarget;
+        private string locRelVelocity;
+
         // Filter settings
 
         private static MovieTimeFilter flightCameraFilter = null;
@@ -49,6 +53,10 @@ namespace HullcamVDS
             if (flightCameraFilter != null) flightCameraFilter.Initialize("Flight", MovieTimeFilter.eFilterType.Flight);
 
             RefreshTitleTexture();
+
+            //get localization strings
+            locTarget = Localizer.Format("#autoLOC_HULL_DOCK_001");
+            locRelVelocity = Localizer.Format("#autoLOC_HULL_DOCK_002");
         }
 
         public static void DrawOutline(Rect rect, string text, GUIStyle style)
@@ -108,7 +116,7 @@ namespace HullcamVDS
 
                     guiStyle.normal.textColor = Color.white;
                     guiStyle.alignment = TextAnchor.MiddleLeft;
-                    DrawOutline(new Rect(Screen.width / 6, Screen.height / 2 + 80, 300, 25), "Relative Velocity", guiStyle);
+                    DrawOutline(new Rect(Screen.width / 6, Screen.height / 2 + 80, 300, 25), locRelVelocity, guiStyle);
                     DrawOutline(new Rect(Screen.width / 6, Screen.height / 2 + 100, 300, 25), "X:", guiStyle);
                     DrawOutline(new Rect(Screen.width / 6, Screen.height / 2 + 120, 300, 25), "Y:", guiStyle);
                     DrawOutline(new Rect(Screen.width / 6, Screen.height / 2 + 140, 300, 25), "Z:", guiStyle);
@@ -118,7 +126,7 @@ namespace HullcamVDS
                     DrawOutline(new Rect(Screen.width / 6 + 20, Screen.height / 2 + 140, 150, 25), targetVelZ + "m/s", guiStyle);
                     guiStyle.alignment = TextAnchor.MiddleLeft;
 
-                    DrawOutline(new Rect(Screen.width / 6, Screen.height / 2 + 18, 800, 25), "Target:" + targetName, guiStyle);
+                    DrawOutline(new Rect(Screen.width / 6, Screen.height / 2 + 18, 800, 25), locTarget + ": " + targetName, guiStyle);
                     DrawOutline(new Rect(Screen.width / 6, Screen.height / 2 + 40, 300, 25), "DST:", guiStyle);
                     DrawOutline(new Rect(Screen.width / 6, Screen.height / 2 + 60, 400, 25), "TCA:", guiStyle);
                     guiStyle.alignment = TextAnchor.MiddleRight;

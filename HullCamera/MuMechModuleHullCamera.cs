@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using UnityEngine;
+using KSP.Localization;
 
 namespace HullcamVDS
 {
@@ -36,13 +37,13 @@ namespace HullcamVDS
         [KSPField]
         public float cameraZoomMult = 1.25f;
 
-        [KSPAction("Zoom In")]
+        [KSPAction("#autoLOC_HULL_EVT_007")] //Zoom In
         public void ZoomInAction(KSPActionParam ap)
         {
             sActionFlags.zoomIn = true;
         }
 
-        [KSPAction("Zoom Out")]
+        [KSPAction("#autoLOC_HULL_EVT_008")] //Zoom Out
         public void ZoomOutAction(KSPActionParam ap)
         {
             sActionFlags.zoomOut = true;
@@ -123,6 +124,43 @@ namespace HullcamVDS
             public bool zoomOut;
         }
         protected static ActionFlags sActionFlags;
+
+        #region Localization
+
+        private static string locActivateCamera; //Activate Camera
+        private static string locDeactivateCamera; //Deactivate Camera
+        //private static string locNextCam; //Next Camera
+        //private static string locPrevCam; //Previous Camera
+        private static string locDisableCam; //Disable Camera
+        private static string locEnableCam; //Enable Camera
+        //private static string locZoomIn; //Zoom In
+        //private static string locZoomOut; //Zoom Out
+
+        private static string locOriginalControlPoint; //Original Control Point
+        private static string locControlPointRestored; //Control Point restored to
+        private static string locControlPointChanged; //Control Point changed to
+        private static string locSwitchCamera; //Switching to camera
+        private static string locVessel; //on vessel
+
+        private static void LocalizationStringInit()
+        {
+            locActivateCamera = Localizer.Format("#autoLOC_HULL_EVT_001");
+            locDeactivateCamera = Localizer.Format("#autoLOC_HULL_EVT_002");
+            locEnableCam = Localizer.Format("#autoLOC_HULL_EVT_003");
+            locDisableCam = Localizer.Format("#autoLOC_HULL_EVT_004");
+            //locNextCam = Localizer.Format("#autoLOC_HULL_EVT_005");
+            //locPrevCam = Localizer.Format("#autoLOC_HULL_EVT_006");
+            //locZoomIn = Localizer.Format("#autoLOC_HULL_EVT_007");
+            //locZoomOut = Localizer.Format("#autoLOC_HULL_EVT_008");
+
+            locOriginalControlPoint = Localizer.Format("#autoLOC_HULL_MSG_001");
+            locControlPointRestored = Localizer.Format("#autoLOC_HULL_MSG_002");
+            locControlPointChanged = Localizer.Format("#autoLOC_HULL_MSG_003");
+            locSwitchCamera = Localizer.Format("#autoLOC_HULL_MSG_004");
+            locVessel = Localizer.Format("#autoLOC_HULL_MSG_005");
+        }               
+
+        #endregion
 
         #region Configuration
 
@@ -250,7 +288,7 @@ namespace HullcamVDS
             if (sOrigVesselTransformPart == null)
             {
                 sOrigVesselTransformPart = FlightGlobals.ActiveVessel.GetReferenceTransformPart();
-                ScreenMessages.PostScreenMessage("Original Control Point: " + sOrigVesselTransformPart.partInfo.title);
+                ScreenMessages.PostScreenMessage(locOriginalControlPoint + ": " + sOrigVesselTransformPart.partInfo.title);
             }
         }
 
@@ -300,7 +338,7 @@ namespace HullcamVDS
                     }
 
                     FlightGlobals.ActiveVessel.SetReferenceTransform(sOrigVesselTransformPart, true);
-                    ScreenMessages.PostScreenMessage("Control Point restored to " + sOrigVesselTransformPart.partInfo.title);
+                    ScreenMessages.PostScreenMessage(locControlPointRestored + " " + sOrigVesselTransformPart.partInfo.title);
                     sOrigVesselTransformPart = null;
                 }
             }
@@ -397,13 +435,13 @@ namespace HullcamVDS
                             if (sOrigVesselTransformPart == null)
                             {
                                 sOrigVesselTransformPart = FlightGlobals.ActiveVessel.GetReferenceTransformPart();
-                                ScreenMessages.PostScreenMessage("Original Control Point: " + sOrigVesselTransformPart.partInfo.title);
+                                ScreenMessages.PostScreenMessage(locOriginalControlPoint + ": " + sOrigVesselTransformPart.partInfo.title);
                             }
 
                             newCam.part.SetReferenceTransform(mdn.controlTransform);
                             FlightGlobals.ActiveVessel.SetReferenceTransform(newCam.part, true);
 
-                            ScreenMessages.PostScreenMessage("Control Point changed to " + newCam.part.partInfo.title);
+                            ScreenMessages.PostScreenMessage(locControlPointChanged + " " + newCam.part.partInfo.title);
                         }
                     }
                 }
@@ -444,9 +482,9 @@ namespace HullcamVDS
             if (sCurrentCamera != null && sDisplayCameraNameWhenSwitching)
             {
                 if (sDisplayVesselNameWhenSwitching)
-                    ScreenMessages.PostScreenMessage("Switching to camera: " + sCurrentCamera.cameraName + " on vessel " + sCurrentCamera.vessel.GetDisplayName(), sMessageDuration, ScreenMessageStyle.UPPER_CENTER);
+                    ScreenMessages.PostScreenMessage(locSwitchCamera + ": " + sCurrentCamera.cameraName + " " + locVessel + " " + sCurrentCamera.vessel.GetDisplayName(), sMessageDuration, ScreenMessageStyle.UPPER_CENTER);
                 else
-                    ScreenMessages.PostScreenMessage("Switching to camera: " + sCurrentCamera.cameraName, sMessageDuration, ScreenMessageStyle.UPPER_CENTER);
+                    ScreenMessages.PostScreenMessage(locSwitchCamera + ": " + sCurrentCamera.cameraName, sMessageDuration, ScreenMessageStyle.UPPER_CENTER);
             }
         }
 
@@ -509,13 +547,14 @@ namespace HullcamVDS
 
         // Note: Events show in the part menu in flight.
 
-        [KSPEvent(guiActive = true, guiName = "Activate Camera")]
+        [KSPEvent(guiActive = true, guiName = "#autoLOC_HULL_EVT_001")] //Activate Camera
         public void ActivateCamera()
         {
             Activate();
+            Events["ActivateCamera"].guiName = camActive ? locDeactivateCamera : locActivateCamera;
         }
 
-        [KSPEvent(guiActive = true, guiName = "Disable Camera")]
+        [KSPEvent(guiActive = true, guiName = "#autoLOC_HULL_EVT_004")] //Disable Camera
         public void EnableCamera()
         {
             if (part.State == PartStates.DEAD)
@@ -523,7 +562,7 @@ namespace HullcamVDS
                 return;
             }
             camEnabled = !camEnabled;
-            Events["EnableCamera"].guiName = camEnabled ? "Disable Camera" : "Enable Camera";
+            Events["EnableCamera"].guiName = camEnabled ? locDisableCam : locEnableCam;
 
 
             DirtyWindow();
@@ -535,13 +574,13 @@ namespace HullcamVDS
 
         // Note: Actions are available to action groups.
 
-        [KSPAction("Activate Camera")]
+        [KSPAction("#autoLOC_HULL_EVT_001")] //Activate Camera
         public void ActivateCameraAction(KSPActionParam ap)
         {
             Activate();
         }
 
-        [KSPAction("Deactivate Camera")]
+        [KSPAction("#autoLOC_HULL_EVT_002")] //Deactivate Camera
         public void DeactivateCameraAction(KSPActionParam ap)
         {
             if (part.State == PartStates.DEAD)
@@ -549,17 +588,17 @@ namespace HullcamVDS
                 return;
             }
             camEnabled = !camEnabled;
-            Events["EnableCamera"].guiName = camEnabled ? "Deactivate Camera" : "Activate Camera";
+            Events["EnableCamera"].guiName = camEnabled ? locDeactivateCamera : locActivateCamera;
             DirtyWindow();
         }
 
-        [KSPAction("Next Camera")]
+        [KSPAction("#autoLOC_HULL_EVT_005")] //Next Camera
         public void NextCameraAction(KSPActionParam ap)
         {
             sActionFlags.nextCamera = true;
         }
 
-        [KSPAction("Previous Camera")]
+        [KSPAction("#autoLOC_HULL_EVT_006")] //Previous Camera
         public void PreviousCameraAction(KSPActionParam ap)
         {
             sActionFlags.prevCamera = true;
@@ -832,9 +871,9 @@ namespace HullcamVDS
             }
         }
 
-
         public override void OnStart(StartState state)
         {
+            LocalizationStringInit();
             StaticInit();
 
             GameEvents.onGameSceneLoadRequested.Add(onGameSceneLoadRequested);
@@ -863,7 +902,7 @@ namespace HullcamVDS
             }
             else
             {
-                Events["EnableCamera"].guiName = camEnabled ? "Disable Camera" : "Enable Camera";
+                Events["EnableCamera"].guiName = camEnabled ? locDisableCam : locEnableCam;
             }
 
             base.OnStart(state);
