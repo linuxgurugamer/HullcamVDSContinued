@@ -94,3 +94,9 @@
 0.1.11
 	Added patch file for BlueDog Design Bureau
 	Fixed missing texture on the wide angle camera
+
+0.1.12
+	Thanks to @4x4cheesecake for the following:
+		Did localization work
+		Added German translation
+		Added Chinese translation from  @sosoxia
