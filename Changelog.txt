@@ -100,3 +100,7 @@
 		Did localization work
 		Added German translation
 		Added Chinese translation from  @sosoxia
+
+0.1.13
+	Updated AssemblyVersion.tt
+	Deleted old commented out code

@@ -326,17 +326,6 @@ namespace HullcamVDS
             {
                 if (GameSettings.MODIFIER_KEY.GetKey(false))
                 {
-#if false
-                    ModuleDockingNode mdn = sOrigVesselTransformPart.FindModuleImplementing<ModuleDockingNode>();
-                    if (mdn != null)
-                    {
-                        sOrigVesselTransformPart.SetReferenceTransform(mdn.controlTransform);
-                    } else
-#endif
-                    {
-                       // sOrigVesselTransformPart.SetReferenceTransform(sOrigVesselTransformPart.GetReferenceTransform());
-                    }
-
                     FlightGlobals.ActiveVessel.SetReferenceTransform(sOrigVesselTransformPart, true);
                     ScreenMessages.PostScreenMessage(locControlPointRestored + " " + sOrigVesselTransformPart.partInfo.title);
                     sOrigVesselTransformPart = null;
@@ -631,23 +620,6 @@ namespace HullcamVDS
                 sCurrentHandler = this;
             }
 
-#if false
-            if (Input.GetKeyDown(KeyCode.Y) ) {
-
-				print (sCameras.Count);
-				print ("sCurrentCamera: " + sCurrentCamera);
-				print ("This: " + this);
-				print ("sCurrentHandler: " + sCurrentHandler);
-				print ("sCurrentCamera.vessel: " + sCurrentCamera.vessel);
-				print ("FlightGlobals.ActiveVessel: " + FlightGlobals.ActiveVessel);
-				print (sCameras.Count);
-				print (sOrigParent);
-				print (sActionFlags.nextCamera);
-				print (sCycleToMainCamera);
-				print (sCameras.IndexOf(sCurrentCamera));
-				DebugList ();
-			}
-#endif
 
             if (sCurrentCamera != null)
             {
