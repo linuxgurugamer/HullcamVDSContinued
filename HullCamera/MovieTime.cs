@@ -148,7 +148,7 @@ namespace HullcamVDS
             {
                 print(currentMode);
             }
-            if (FlightGlobals.ActiveVessel.targetObject == null)
+            if (FlightGlobals.ActiveVessel == null || FlightGlobals.ActiveVessel.targetObject == null)
                 return;
             HasTargetData = (FlightGlobals.ActiveVessel.targetObject is Vessel || FlightGlobals.ActiveVessel.targetObject is ModuleDockingNode);
             currentMode = GetCameraMode().ToString();
