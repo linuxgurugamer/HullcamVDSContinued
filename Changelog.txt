@@ -113,3 +113,6 @@
 
 0.2.0.1
 	Added extra check for null in MovieTime.Update
+
+0.2.1
+	Added ModuleCargoPart to all parts for new KSP Inventory system
