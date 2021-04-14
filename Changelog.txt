@@ -1,4 +1,4 @@
-﻿ChangeLog
+ChangeLog
 
 0.1.2
 	Updated for 1.2
@@ -116,3 +116,7 @@
 
 0.2.1
 	Added ModuleCargoPart to all parts for new KSP Inventory system
+
+0.2.1.1
+	Changed initial nearClipPlane of the cameras from 0.01 to 0.05 to solve flickering problems during launch
+	Updated build configs

@@ -71,7 +71,7 @@ namespace HullcamVDS
         public float cameraFoV = 60;
 
         [KSPField(isPersistant = false)]
-        public float cameraClip = 0.01f;
+        public float cameraClip = 0.05f;
 
         [KSPField]
         public bool camActive = false; // Saves when we're viewing from this camera.
