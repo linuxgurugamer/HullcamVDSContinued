@@ -9,8 +9,6 @@ rem    but not always
 
 set H=%KSPDIR%
 
-set h=r:\KSP_1.11.2
-
 set GAMEDIR=HullCameraVDS
 set GAMEDATA="GameData"
 copy /Y HullcamVDSContinued.version %GAMEDATA%\%GAMEDIR%

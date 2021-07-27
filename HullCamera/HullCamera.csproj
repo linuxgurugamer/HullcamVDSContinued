@@ -9,7 +9,7 @@
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
     <RootNamespace>HullCamera</RootNamespace>
-    <AssemblyName>HullCamera</AssemblyName>
+    <AssemblyName>HullcamVDSContinued</AssemblyName>
     <FileAlignment>512</FileAlignment>
     <Description>HullCamera</Description>
     <ReleaseVersion>0.2.9.5</ReleaseVersion>

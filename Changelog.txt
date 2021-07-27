@@ -120,3 +120,8 @@ ChangeLog
 0.2.1.1
 	Changed initial nearClipPlane of the cameras from 0.01 to 0.05 to solve flickering problems during launch
 	Updated build configs
+
+0.2.1.2
+	Renamed DLL for CKAN compatibility
+	Added AssemblyFileVersion
+	Updated version file for 1.12
