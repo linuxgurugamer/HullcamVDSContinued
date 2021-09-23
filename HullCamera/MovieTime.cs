@@ -57,6 +57,17 @@ namespace HullcamVDS
             //get localization strings
             locTarget = Localizer.Format("#autoLOC_HULL_DOCK_001");
             locRelVelocity = Localizer.Format("#autoLOC_HULL_DOCK_002");
+
+            GameEvents.onDockingComplete.Add(onDockingComplete);
+        }
+
+        void onDockingComplete(GameEvents.FromToAction<Part, Part> fta)
+        {
+            HasTargetData = false;
+        }
+        void onDestroy()
+        {
+            GameEvents.onDockingComplete.Remove(onDockingComplete);
         }
 
         public static void DrawOutline(Rect rect, string text, GUIStyle style)
