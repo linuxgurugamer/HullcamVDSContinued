@@ -550,6 +550,9 @@ namespace HullcamVDS
             {
                 return;
             }
+
+            if (camEnabled) LeaveCamera();
+
             camEnabled = !camEnabled;
             Events["EnableCamera"].guiName = camEnabled ? locDisableCam : locEnableCam;
 
