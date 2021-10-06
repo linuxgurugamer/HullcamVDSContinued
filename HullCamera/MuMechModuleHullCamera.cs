@@ -551,11 +551,14 @@ namespace HullcamVDS
                 return;
             }
 
-            if (camEnabled) LeaveCamera();
+            if (camActive)
+            {
+                LeaveCamera();
+                camActive = false;
+            }
 
             camEnabled = !camEnabled;
             Events["EnableCamera"].guiName = camEnabled ? locDisableCam : locEnableCam;
-
 
             DirtyWindow();
         }
@@ -579,6 +582,13 @@ namespace HullcamVDS
             {
                 return;
             }
+
+            if (camActive)
+            {
+                LeaveCamera();
+                camActive = false;
+            }
+
             camEnabled = !camEnabled;
             Events["EnableCamera"].guiName = camEnabled ? locDeactivateCamera : locActivateCamera;
             DirtyWindow();
