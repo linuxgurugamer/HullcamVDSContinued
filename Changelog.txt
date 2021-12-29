@@ -1,1 +1,156 @@
-Added tags
+ChangeLog
+
+0.2.2
+	Added new parts from user @Aahz88
+
+0.2.1.3
+	Fixed data being left on screen after docking
+
+0.2.1.2
+	Renamed DLL for CKAN compatibility
+	Added AssemblyFileVersion
+	Updated version file for 1.12
+
+0.2.1.1
+	Changed initial nearClipPlane of the cameras from 0.01 to 0.05 to solve flickering problems during launch
+Updated build configs
+
+0.2.1
+	Added ModuleCargoPart to all parts for new KSP Inventory system
+
+0.2.0.1
+	Added extra check for null in MovieTime.Update
+
+0.2.0
+	Added InstallChecker
+	Updated for KSP 1.8
+
+0.1.13
+	Updated AssemblyVersion.tt
+	Deleted old commented out code
+
+0.1.12
+	Thanks to @4x4cheesecake for the following:
+		Did localization work
+		Added German translation
+		Added Chinese translation from  @sosoxia
+
+0.1.11
+	Added patch file for BlueDog Design Bureau
+	Fixed missing texture on the wide angle camera
+
+0.1.10.2
+	Thanks to forum user @4x4cheesecake for the following:
+		Removed FINAL from patches
+		Added RPM as a dependency for the patch to run at all to prevent warnings about the missing partmodule if RPM is not installed.
+
+0.1.10.1
+	Split aerocam into two files
+	added missing bulkheadProfiles to aerocam180
+
+0.1.10
+	Add missing bulkheadprofiles
+
+0.1.9.13
+	???
+
+0.1.9.12
+	Fixed resetting the control point when using the Alt (on Windows) when cycling past the last camera
+
+0.1.9.11
+	Reverted change to line 317 in MuMechModuleHullCamera, caused issues with cameras
+	Fixed cameras for the inline docking ports to match the navball when the docking port is the active control point
+	New feature, holding down Alt (on Windows) when hitting + or - will change the control point to the docking port with the camera, only works on docking ports and the original controlling part
+
+0.1.9.10
+	Fixed nullref when using the equals sign and at the end of the list of cameras.
+	Added code to allow a docking node to be a target and have the docking info displayed on the docking camera
+
+0.1.9.9
+	Fixed the KSC Launchpad Camera so it now is there
+	Removed the obsolete impactTolerance variable
+	Thanks to @Gordon Dry for this:  patch to avoid the EVA cam to be added when the mod ThroughTheEyes is already installed.
+	Simplified the kerbalEVA patch 
+
+0.1.9.8
+	Removed code which was adding the eva camera at runtime and replaced it with a MM script
+	Moved all MM scripts into new folder
+
+0.1.9.7
+	Fixed bug when the expansion is included, due to not finding the vintage kerbal parts
+
+0.1.9.6
+	Version bump for 1.5 rebuild
+
+0.1.9.5
+	fixed RPM patch for showing camera fov in the editor for the Kazzelblad and wide-angle camera
+
+0.1.9.4
+	Fixed error: Texture 'HullCameraVDS/Parts/hc_wideangle/model000' not found
+
+0.1.9.3
+	Added message to identify current camera when switching
+	Added two new config options, both defaulting to true:
+		DisplayCameraNameWhenSwitching
+		DisplayVesselNameWhenSwitching
+	Added new config option, defaulting to 3 seconds, allowable range is 1-10
+		MessageDuration
+	Commented out all old references to HullCamera and RESOURCE in the parts
+
+0.1.9.2
+	Fixed shaders, thanks to @Kerbas_ad_astra
+
+0.1.9.1
+	Disabled log spam due to missing shader
+	Updated version file
+
+0.1.9
+	Added change suggested by forum user @jebs_sy to have the camera focus on the vessel (center of mass) instead of a part when leaving the hull camera
+	Updated for 1.4.1
+
+0.1.8
+	Updated for KSP 1.3.1
+
+0.1.7.1
+	Removed log spam
+
+0.1.7
+	Updated for 1.3
+
+0.1.6
+	Updated shaders code for windows, now supports both DirectX and OpenGL
+
+0.1.5
+	Updated shaders for Linux and OSX
+
+0.1.4.1
+	Undid the change from FINAL to AFTER
+
+0.1.4
+	Updated patches to use AFTER instead of FINAL per Sarbian's note
+
+0.1.3
+	Copied patch from RPM 
+	Fixed patches for cameras in RPM
+	Fixed Telescopes
+	Fixed various offsets and rotations
+	fixed names in files, so that L-Tech will now have the same camera name as Hullcam
+	Got all cameras working with RP
+
+0.1.2.2
+	Updated version build
+
+0.1.2.1
+	Removed extra MM dll
+
+1.2 Ser release
+	Release for 1.2
+	Thanks to @ser for some help
+
+0.1.1
+	Updated part cfg
+
+
+0.1.0.1
+	Adoption by Linuxgurugamer
+	Initial release
