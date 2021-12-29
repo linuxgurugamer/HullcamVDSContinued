@@ -220,3 +220,6 @@ $RECYCLE.BIN/
 *.swp
 
 *.dll
+.vs
+*.sqlite
+Browse.VC.db
