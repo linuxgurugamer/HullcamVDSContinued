@@ -1,10 +1,5 @@
 ChangeLog
 
-0.2.2.1
-	Thanks to github user @TedThompson for this:
-		Fixed issue with Camera Reset conflict with default ABORT key
-		Fixed MM patch when adding to kerbals to avoid multiple buttons in the paw
-
 0.2.2
 	Added new parts from user @Aahz88
 

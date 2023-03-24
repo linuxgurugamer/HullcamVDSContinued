@@ -11,6 +11,8 @@ set H=%KSPDIR%
 
 set GAMEDIR=HullCameraVDS
 set GAMEDATA="GameData"
+set VERSIONFILE=HullcamVDSContinued.version
+
 copy /Y HullcamVDSContinued.version %GAMEDATA%\%GAMEDIR%
 
 set DP0=r:\dp0\kspdev
