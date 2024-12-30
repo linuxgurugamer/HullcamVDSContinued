@@ -1,5 +1,12 @@
 ChangeLog
 
+0.2.2.2
+	Adjusted patch for RPM for the hc_kazzelblad camera, made translation match original
+	Updated version file to use github for new version info
+	Copied web page to README.md file
+	Thanks to github user @Anomalia2022 for this:
+		Updated code to set the nearClipPlane to default to 0.1f
+
 0.2.2.1
 	Thanks to github user @TedThompson for this:
 		Fixed issue with Camera Reset conflict with default ABORT key
