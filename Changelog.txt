@@ -1,5 +1,9 @@
 ChangeLog
 
+0.2.2.3
+	Thanks to github user @KSAMissionCtrl for finding this:
+		Fixed invalid value for the part DC_TurretCam in the patch for NeptuneCamera
+
 0.2.2.2
 	Adjusted patch for RPM for the hc_kazzelblad camera, made translation match original
 	Updated version file to use github for new version info
