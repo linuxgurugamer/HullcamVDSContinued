@@ -1,5 +1,10 @@
 ChangeLog
 
+0.2.2.4
+	Thanks to github user @XenoRoss for this fix:
+		Changed the offset of the cameras in the RPM patch to match the default part values
+	Added missing cleanup line for a gameevent
+
 0.2.2.3
 	Thanks to github user @KSAMissionCtrl for finding this:
 		Fixed invalid value for the part DC_TurretCam in the patch for NeptuneCamera

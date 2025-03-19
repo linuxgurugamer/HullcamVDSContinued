@@ -938,6 +938,8 @@ namespace HullcamVDS
 
         public void OnDestroy()
         {
+            GameEvents.onGameSceneLoadRequested.Remove(onGameSceneLoadRequested);
+
             DebugOutput("OnDestroy");
             CleanUp();
         }
