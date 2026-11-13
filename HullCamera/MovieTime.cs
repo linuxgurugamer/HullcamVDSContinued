@@ -65,10 +65,6 @@ namespace HullcamVDS
         {
             HasTargetData = false;
         }
-        void onDestroy()
-        {
-            GameEvents.onDockingComplete.Remove(onDockingComplete);
-        }
 
         public static void DrawOutline(Rect rect, string text, GUIStyle style)
         {
@@ -196,6 +192,8 @@ namespace HullcamVDS
         public void OnDestroy()
         {
             Debug.Log("OnDestroy");
+
+            GameEvents.onDockingComplete.Remove(onDockingComplete);
             SetCameraMode(CameraFilter.eCameraMode.Normal);
         }
 

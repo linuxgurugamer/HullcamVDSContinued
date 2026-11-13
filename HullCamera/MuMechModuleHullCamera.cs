@@ -98,9 +98,6 @@ namespace HullcamVDS
         // A camera's destroy function clears this and we have to set another in the update routine.
         public static MuMechModuleHullCamera sCurrentHandler = null;
 
-        // Stores the current flight camera.
-        protected static FlightCamera sCam = null;
-
         // Camera distance from active vessel
         public double sCameraDistance = double.NaN;
 
@@ -158,7 +155,7 @@ namespace HullcamVDS
             locControlPointChanged = Localizer.Format("#autoLOC_HULL_MSG_003");
             locSwitchCamera = Localizer.Format("#autoLOC_HULL_MSG_004");
             locVessel = Localizer.Format("#autoLOC_HULL_MSG_005");
-        }               
+        }
 
         #endregion
 
@@ -190,9 +187,9 @@ namespace HullcamVDS
 
         #region Static Initialization
 
-        protected static void DebugOutput(object o)
+        public static void DebugOutput(object o)
         {
-   			if (sDebugOutput)
+            if (sDebugOutput)
             {
                 Debug.Log("HullCam: " + o.ToString());
             }
@@ -280,34 +277,62 @@ namespace HullcamVDS
         {
             DebugOutput("SaveMainCamera");
 
-            sOrigParent = sCam.transform.parent;
+            sOrigParent = FlightCamera.fetch.transform.parent;
             sOrigClip = Camera.main.nearClipPlane;
             sOrigFov = Camera.main.fieldOfView;
-            sOrigPosition = sCam.transform.localPosition;
-            sOrigRotation = sCam.transform.localRotation;
+            sOrigPosition = FlightCamera.fetch.transform.localPosition;
+            sOrigRotation = FlightCamera.fetch.transform.localRotation;
             if (sOrigVesselTransformPart == null)
             {
                 sOrigVesselTransformPart = FlightGlobals.ActiveVessel.GetReferenceTransformPart();
                 ScreenMessages.PostScreenMessage(locOriginalControlPoint + ": " + sOrigVesselTransformPart.partInfo.title);
             }
         }
+        public static void RestoreMainFlightCamera(bool setFoV, bool setMode)
+        {
+            FlightCamera.fetch.transform.parent = sOrigParent;
+            FlightCamera.fetch.transform.localPosition = sOrigPosition;
+            FlightCamera.fetch.transform.localRotation = sOrigRotation;
 
+            if (setFoV) {
+                FlightCamera.fetch.SetFoV(sOrigFov);
+            }
+
+            if (setMode)
+            {
+                // Really just doing this for the camera mode message to show
+                FlightCamera.fetch.setMode(FlightCamera.fetch.mode);
+
+                // Set FoRlerp to startup value so zoom is smoother after setMode
+                var flRef = FlightCamera.fetch.GetType().GetField("FoRlerp", System.Reflection.BindingFlags.NonPublic | System.Reflection.BindingFlags.Instance);
+                flRef.SetValue(FlightCamera.fetch, 1f);
+            }
+
+            Camera.main.nearClipPlane = sOrigClip;
+        }
         protected static void RestoreMainCamera()
         {
             DebugOutput("RestoreMainCamera");
 
-            if (sCam != null)
+            if (sOrigParent)
             {
-                sCam.transform.parent = sOrigParent;
-                sCam.transform.localPosition = sOrigPosition;
-                sCam.transform.localRotation = sOrigRotation;
-                sCam.SetFoV(sOrigFov);
-                sCam.ActivateUpdate();
-
-                if (FlightGlobals.ActiveVessel != null && HighLogic.LoadedScene == GameScenes.FLIGHT)
+                // If FlightCamera is modified while in MapView game crashes
+                // Ideally we RestoreMainFlightCamera before entering MapView but that requires a Harmony patch
+                if (FlightCamera.fetch.enabled)
                 {
-                    //sCam.SetTarget(FlightGlobals.ActiveVessel.transform, FlightCamera.TargetMode.Transform);
-                    sCam.SetTarget(FlightGlobals.ActiveVessel.transform, FlightCamera.TargetMode.Vessel);
+                    DebugOutput("RestoreMainCamera: Calling RestoreMainFlightCamera");
+                    RestoreMainFlightCamera(true, true);
+                }
+                else
+                {
+                    // Fix black screen when camera exploded, can alternatively use MapView.MapIsEnabled instead of try/catch but this is probably more robust
+                    try
+                    {
+                        RestoreMainFlightCamera(false, false);
+                    }
+                    catch (NullReferenceException) { }
+
+                    DebugOutput("RestoreMainCamera: FlightCamera will be restored on enable");
                 }
 
                 sOrigParent = null;
@@ -318,7 +343,6 @@ namespace HullcamVDS
                 sCurrentCamera.camActive = false;
             }
             sCurrentCamera = null;
-            Camera.main.nearClipPlane = sOrigClip;
 
             /////////////////////////////////////
 
@@ -413,7 +437,7 @@ namespace HullcamVDS
                 newCam = sCameras[nextCam];
 
 #if true
-            
+
                 if (newCam.vessel == FlightGlobals.ActiveVessel)
                 {
                     if (GameSettings.MODIFIER_KEY.GetKey(false))
@@ -532,7 +556,7 @@ namespace HullcamVDS
             }
         }
 
-#region Events
+        #region Events
 
         // Note: Events show in the part menu in flight.
 
@@ -563,9 +587,9 @@ namespace HullcamVDS
             DirtyWindow();
         }
 
-#endregion
+        #endregion
 
-#region Actions
+        #region Actions
 
         // Note: Actions are available to action groups.
 
@@ -606,9 +630,9 @@ namespace HullcamVDS
             sActionFlags.prevCamera = true;
         }
 
-#endregion
+        #endregion
 
-#region Callbacks
+        #region Callbacks
 
         void DebugList()
         {
@@ -636,21 +660,14 @@ namespace HullcamVDS
 
             if (sCurrentCamera != null)
             {
-                if (sCurrentCamera.vessel != FlightGlobals.ActiveVessel)
+                if (sCurrentCamera.vessel != FlightGlobals.ActiveVessel && !sCurrentCamera.vessel.loaded)
                 {
-                    Vector3d activeVesselPos = FlightGlobals.ActiveVessel.orbit.getRelativePositionAtUT(Planetarium.GetUniversalTime()) + FlightGlobals.ActiveVessel.orbit.referenceBody.position;
-                    Vector3d targetVesselPos = sCurrentCamera.vessel.orbit.getRelativePositionAtUT(Planetarium.GetUniversalTime()) + sCurrentCamera.vessel.orbit.referenceBody.position;
-
-                    sCameraDistance = (activeVesselPos - targetVesselPos).magnitude;
-
-                    if (sCameraDistance >= 2480)
-                    {
-                        LeaveCamera();
-                    }
+                    LeaveCamera();
                 }
             }
 
-            if (CameraManager.Instance.currentCameraMode != CameraManager.CameraMode.Flight)
+            // Attempting to modify FlightCamera while in EVA results in glitching
+            if (CameraManager.Instance.currentCameraMode != CameraManager.CameraMode.Flight || FlightGlobals.ActiveVessel.isEVA)
             {
                 return;
             }
@@ -753,21 +770,23 @@ namespace HullcamVDS
                 cameraFoV = Mathf.Clamp(cameraFoV * cameraZoomMult, cameraFoVMin, cameraFoVMax);
                 sActionFlags.zoomOut = false;
             }
-            if (MapView.MapIsEnabled)
+            if (!FlightCamera.fetch.enabled)
             {
                 cameraFoV = Mathf.Clamp(cameraFoV / cameraZoomMult, cameraFoVMin, cameraFoVMax);
             }
         }
 
-        public void FixedUpdate()
+        private void UpdateCamera()
         {
             // In the VAB
             if (vessel == null)
             {
                 return;
             }
-            // following "if" added by jbb
-            if (MapView.MapIsEnabled)
+
+            // attempting to edit a disabled camera results in game glitching
+            // switching in EVA should be done by switching vessel first
+            if (!FlightCamera.fetch.enabled || FlightGlobals.ActiveVessel.isEVA)
             {
                 return;
             }
@@ -787,7 +806,7 @@ namespace HullcamVDS
                 return;
             }
 
-            if (!sAllowMainCamera && sCurrentCamera == null && !vessel.isEVA)
+            if (!sAllowMainCamera && sCurrentCamera == null && !FlightGlobals.ActiveVessel.isEVA)
             {
                 camActive = true;
                 sCurrentCamera = this;
@@ -805,34 +824,17 @@ namespace HullcamVDS
                 return;
             }
 
-            if (sCam == null)
-            {
-                sCam = FlightCamera.fetch;
-                // No idea if fetch returns null in normal operation (i.e. when there isn't a game breaking bug going on already)
-                // but the original code had similar logic.
-                if (sCam == null)
-                {
-                    return;
-                }
-            }
-
             // Either we haven't set sOriginParent, or we've nulled it when restoring the main camera, so we save it again here.
             if (sOrigParent == null)
             {
                 SaveMainCamera();
             }
 
+            FlightCamera.fetch.transform.parent = (cameraTransformName.Length > 0) ? part.FindModelTransform(cameraTransformName) : part.transform;
+            FlightCamera.fetch.transform.localPosition = cameraPosition;
+            FlightCamera.fetch.transform.localRotation = Quaternion.LookRotation(cameraForward, cameraUp);
 
-            //sCam.SetTarget(null);
-            sCam.SetTargetNone();
-            sCam.transform.parent = (cameraTransformName.Length > 0) ? part.FindModelTransform(cameraTransformName) : part.transform;
-            sCam.DeactivateUpdate();
-            sCam.transform.localPosition = cameraPosition;
-
-
-
-            sCam.transform.localRotation = Quaternion.LookRotation(cameraForward, cameraUp);
-            sCam.SetFoV(cameraFoV);
+            FlightCamera.fetch.SetFoV(cameraFoV);
             Camera.main.nearClipPlane = cameraClip;
 
             // If we're only allowed to cycle the active vessel and viewing through a camera that's not the active vessel any more, then cycle to one that is.
@@ -841,15 +843,49 @@ namespace HullcamVDS
                 DebugOutput(" 4");
                 CycleCamera(1);
             }
+        }
+
+        public void FixedUpdate()
+        {
+            UpdateCamera();
 
             base.OnFixedUpdate();
+        }
+
+        private void onVesselChange(Vessel v)
+        {
+            // We don't support viewing camera while in EVA, restore to default one
+            // If you want to view HullCam while in EVA consider using something like OCISLY
+            if (v.isEVA && sCurrentCamera != null)
+            {
+                DebugOutput("Restoring EVA camera");
+                RestoreMainCamera();
+            }
+        }
+
+        void OnCameraChange(CameraManager.CameraMode m)
+        {
+            if (CameraManager.Instance == null)
+                return;
+
+            if (sCurrentCamera == null)
+                return;
+
+            if (m == CameraManager.CameraMode.IVA)
+            {
+                sCurrentCamera.mt.SetCameraMode(CameraFilter.eCameraMode.Normal);
+            } 
+            else if (m == CameraManager.CameraMode.Flight)
+            {
+                changeCameraMode();
+            }
         }
 
         private void onGameSceneLoadRequested(GameScenes gameScene)
         {
             if (sCurrentCamera != null)
             {
-                print("Clearing camera list");
+                DebugOutput("Clearing camera list");
                 sCameras.Clear();
                 sCurrentCamera.mt.SetCameraMode(CameraFilter.eCameraMode.Normal);
                 sCurrentCamera = null;
@@ -862,7 +898,11 @@ namespace HullcamVDS
             StaticInit();
 
             GameEvents.onGameSceneLoadRequested.Add(onGameSceneLoadRequested);
+            GameEvents.onVesselChange.Add(onVesselChange);
+            GameEvents.OnCameraChange.Add(OnCameraChange);
 
+            // We restore camera back to default before entering MapView, this prevents flicker from that
+            MapView.OnExitMapView += UpdateCamera;
 
             // Reading camEnabled right away, so is something setting this value?
             // KSPFields are saving game state.
@@ -914,7 +954,7 @@ namespace HullcamVDS
                 DebugOutput(String.Format("Removed, now {0}", sCameras.Count));
                 // This happens when we're saving and reloading.
 
-                if (sCameras.Count < 1 && sOrigParent != null && !this.camActive)
+                if (sCameras.Count < 1 && sOrigParent != null && (!this.camActive || !sAllowMainCamera))
                 {
                     DebugOutput("Set sCurrentCamera to null");
                     sCurrentCamera = null;
@@ -939,6 +979,10 @@ namespace HullcamVDS
         public void OnDestroy()
         {
             GameEvents.onGameSceneLoadRequested.Remove(onGameSceneLoadRequested);
+            GameEvents.onVesselChange.Remove(onVesselChange);
+            GameEvents.OnCameraChange.Remove(OnCameraChange);
+
+            MapView.OnExitMapView -= UpdateCamera;
 
             DebugOutput("OnDestroy");
             CleanUp();
@@ -952,7 +996,7 @@ namespace HullcamVDS
 
 
 
-#endregion
+        #endregion
     }
 
 }

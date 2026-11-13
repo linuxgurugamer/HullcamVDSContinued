@@ -91,6 +91,7 @@ if $(ConfigurationName) == Release (
     <Compile Include="HullCameraZoom.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="FirstPersonEVA.cs" />
+    <Compile Include="HullCameraVesselModule.cs" />
     <Compile Include="CameraFilters\CameraFilter.cs" />
     <Compile Include="CameraFilters\CameraFilterBlackAndWhiteFilm.cs" />
     <Compile Include="CameraFilters\CameraFilterBlackAndWhiteHiResTV.cs" />
