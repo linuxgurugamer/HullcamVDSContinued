@@ -1,5 +1,17 @@
 ChangeLog
 
+0.2.2.5 
+	Fixed name of kazzelblad camera
+	Updated texture of kazzelblad camera to make it a bit more visible
+	Thanks to github user @xCuri0 for the following fixes:
+		Previously it was possible to switch camera while using Through The Eyes/EVA/first person which caused the game to glitch, this prevents that.
+		Fixed camera filter staying enabled after switching to first person.
+		Camera is properly restored during vessel destruction or switching which should prevent the black screen crashes that occurred previously
+		Fixed flickering when exiting MapView.
+		Crashes/black screen caused by vessel switching/destruction while in MapView should be less. To fix them completely Harmony needs to be added as a dependency because OnMapEntered gets triggered after map camera is active. Testing a Harmony patch to restore camera before map camera is activated (enterMapView) fixed all those issues. Maybe there's a better way to manage cameras than this ?
+		KSPCF reported memory leak caused by OnDestroy being named onDestroy was fixed.
+		Check if vessel loaded instead of checking using distance.
+
 0.2.2.4
 	Thanks to github user @XenoRoss for this fix:
 		Changed the offset of the cameras in the RPM patch to match the default part values

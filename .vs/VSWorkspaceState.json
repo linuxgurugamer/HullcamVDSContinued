@@ -1,11 +1,6 @@
 {
   "ExpandedNodes": [
     "",
-    "\\GameData",
-    "\\GameData\\HullCameraVDS",
-    "\\GameData\\HullCameraVDS\\MM_Scripts",
-    "\\GameData\\HullCameraVDS\\Parts",
-    "\\GameData\\HullCameraVDS\\Parts\\hc_kazzelblad",
     "\\HullCamera"
   ],
   "SelectedNode": "\\HullCamera\\MuMechModuleHullCamera.cs",
