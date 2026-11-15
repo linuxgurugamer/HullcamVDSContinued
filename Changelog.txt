@@ -1,5 +1,9 @@
 ChangeLog
 
+0.2.2.6
+	Thanks to github user @xCuri0 for the following fixes:
+		Fix overlooked missing DeactivateUpdate/ActivateUpdate
+
 0.2.2.5 
 	Fixed name of kazzelblad camera
 	Updated texture of kazzelblad camera to make it a bit more visible
