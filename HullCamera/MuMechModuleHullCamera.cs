@@ -316,6 +316,7 @@ namespace HullcamVDS
 
             if (sOrigParent)
             {
+                FlightCamera.fetch.ActivateUpdate();
                 // If FlightCamera is modified while in MapView game crashes
                 // Ideally we RestoreMainFlightCamera before entering MapView but that requires a Harmony patch
                 if (FlightCamera.fetch.enabled)
@@ -652,6 +653,8 @@ namespace HullcamVDS
                 return;
             }
 
+            // MapView.MapIsEnabled was replaced by CameraManager.CameraMode.Flight
+
             if (sCurrentHandler == null)
             {
                 sCurrentHandler = this;
@@ -834,6 +837,7 @@ namespace HullcamVDS
             FlightCamera.fetch.transform.localPosition = cameraPosition;
             FlightCamera.fetch.transform.localRotation = Quaternion.LookRotation(cameraForward, cameraUp);
 
+            FlightCamera.fetch.DeactivateUpdate();
             FlightCamera.fetch.SetFoV(cameraFoV);
             Camera.main.nearClipPlane = cameraClip;
 
